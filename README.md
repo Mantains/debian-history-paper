@@ -14,32 +14,37 @@ Beyond generating a chart, the primary purpose of this project is to serve as a 
 
 ## 📊 Output Preview
 
-![Graph Preview](https://via.placeholder.com/800x400?text=Please+Upload+Screen+Capture+of+Generated+PDF)
-*Figure 1: The rendered plot showing package growth from Buzz to Bookworm.*
+![Graph preview](res/image.png)
+*Figure 1: The trajectory of available software packages in Debian stable releases over time.*
 
 ## 🛠️ Prerequisites
 
-To compile the modern version of this document (on Debian 10+), you need a standard TeX distribution with the following packages:
+To compile this document on old systems (Such as Debian 0.93R6), you need these packages installed:
 
-* `texlive-latex-extra` (for PGFPlots)
-* `texlive-bibtex-extra` (for BibLaTeX/Biber)
-* `biber`
-
-On older systems (Debian 0.93 - 2.0), modern packages like `pgfplots` or `biblatex` may not exist. Legacy branches of this document (if planned) will use standard `gnuplot` or pure LaTeX tables.
+* `latex` 
+* `gnuplot`
+* `bibtex`
 
 ## 🚀 Usage
 
-### Standard Compilation (Modern Debian)
+### Standard Compilation (Old Debian)
 
-If you are on a modern system (Debian 9 Stretch or later), use the following commands:
+If you are on a old system, use the following commands:
 
 ```bash
-# 1. Compile the document structure
-pdflatex debian_intro.tex
+# 1. Prepare the plot
+gnuplot plot.gp
 
-# 2. Process the bibliography
-biber debian_intro
+# 2. Compile the document structure
+latex debian_intro.tex
 
-# 3. Link citations and resolve cross-references
-pdflatex debian_intro.tex
-pdflatex debian_intro.tex
+# 3. Process the bibliography
+bibtex debian_intro
+
+# 4. Link citations and resolve cross-references
+latex debian_intro.tex
+latex debian_intro.tex
+
+# 5. Convert to PostScript for viweing/printing
+dvips debian_intro.dvi -o debian_intro.ps
+```
