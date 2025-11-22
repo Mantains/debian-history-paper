@@ -1,0 +1,115 @@
+\documentclass[11pt, a4paper]{article}
+
+% Packages for formatting and language
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{url}
+
+% Package for plotting
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% Bibliography setup (using biblatex to mimic Frontiers style)
+\usepackage[backend=biber, style=authoryear, natbib=true]{biblatex}
+
+% --- EMBEDDED BIBLIOGRAPHY DATA ---
+% In a real project, this would be in a .bib file
+\begin{filecontents}{references.bib}
+@online{debianhistory,
+    author = {{The Debian Project}},
+    title = {A Brief History of Debian},
+    year = {2023},
+    url = {https://www.debian.org/doc/manuals/project-history/},
+    urldate = {2023-11-22},
+    note = {[Accessed November 22, 2023]}
+}
+\end{filecontents}
+\addbibresource{references.bib}
+
+\title{\textbf{Introduction to the Debian System}}
+\author{Debian User}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Overview}
+
+Debian is one of the oldest and most influential Linux distributions in existence. Founded by Ian Murdock in 1993, it was named after his girlfriend (later wife) Debra and himself. Unlike many other operating systems, Debian is not developed by a single company but by a massive, distributed community of volunteers known as the Debian Project.
+
+The system is renowned for its stability, its strict adherence to the Free Software philosophy, and its robust package management system, \texttt{APT} (Advanced Package Tool). Debian serves as the upstream foundation for numerous other popular distributions, including Ubuntu, Kali Linux, and Linux Mint.
+
+The project is guided by the \textit{Debian Social Contract}, which ensures the system remains 100\% free software. Over the decades, the complexity and utility of the OS have grown exponentially, represented by the size of its software repository \citep{debianhistory}.
+
+\section{Repository Growth}
+
+One of the primary metrics for the success and scale of Debian is the number of software packages available in its official repositories. Starting from a modest collection in the mid-90s, the repository has grown to include tens of thousands of pre-compiled binaries.
+
+Figure \ref{fig:pkg_growth} illustrates the approximate number of packages included in major Debian stable releases, from Debian 0.93 (1995) to Debian 12 "Bookworm" (2023).
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Growth of Debian Packages (1995--2023)},
+            xlabel={Year},
+            ylabel={Number of Packages},
+            grid=major,
+            width=0.9\textwidth,
+            height=8cm,
+            xmin=1994, xmax=2024,
+            ymin=0, ymax=70000,
+            xtick={1995, 2000, 2005, 2010, 2015, 2020, 2023},
+            xticklabel style={/pgf/number format/1000 sep=},
+            scaled y ticks=false,
+            y tick label style={/pgf/number format/fixed},
+            legend pos=north west,
+            mark options={solid}
+        ]
+        
+        % Data points: Year vs Approx Package Count
+        % Source: Debian Project History
+        \addplot[
+            color=blue,
+            mark=*,
+            thick,
+            smooth
+        ]
+        coordinates {
+            (1995, 474)   % 0.93R6
+            (1996, 474)   % 1.1 Buzz
+            (1998, 1500)  % 2.0 Hamm
+            (2000, 3900)  % 2.2 Potato
+            (2002, 8500)  % 3.0 Woody
+            (2005, 15400) % 3.1 Sarge
+            (2007, 18000) % 4.0 Etch
+            (2009, 23000) % 5.0 Lenny
+            (2011, 29000) % 6.0 Squeeze
+            (2013, 37000) % 7.0 Wheezy
+            (2015, 43000) % 8.0 Jessie
+            (2017, 51000) % 9.0 Stretch
+            (2019, 59000) % 10 Buster
+            (2021, 59551) % 11 Bullseye
+            (2023, 64419) % 12 Bookworm
+        };
+        \addlegendentry{Packages in Main Repository}
+        
+        % Annotations for specific releases
+        \node[anchor=south] at (axis cs: 1996, 474) {\tiny Buzz};
+        \node[anchor=south east] at (axis cs: 2002, 8500) {\tiny Woody};
+        \node[anchor=south east] at (axis cs: 2013, 37000) {\tiny Wheezy};
+        \node[anchor=south east] at (axis cs: 2023, 64419) {\tiny Bookworm};
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{The trajectory of available software packages in Debian stable releases over time.}
+    \label{fig:pkg_growth}
+\end{figure}
+
+\printbibliography
+
+\end{document}
