@@ -24,5 +24,7 @@ set label "Trixie" at 2024, 70000 center
 # Plot the data
 # 'using 1:2' means use column 1 for X and column 2 for Y
 # 'linespoints' draws both lines and points
-# 'pt 7' is a solid circle, 'ps 1.0' is point size
-plot "debian.dat" using 1:2 title "Packages in Main" with linespoints 2 7
+# Use default line/point types: valid in Gnuplot 3.5 and modern versions.
+# Old positional types ("2 7") are rejected by modern Gnuplot; newer
+# "lt"/"pt" options are not understood by Gnuplot 3.5.
+plot "debian.dat" using 1:2 title "Packages in Main" with linespoints
