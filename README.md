@@ -41,6 +41,19 @@ Page dimensions use TeX lengths; `dvips -t a4` selects physical A4 paper.
 
 ## 🚀 Usage
 
+### Reproduce from a blank Debian 0.93R6 disk
+
+Use [REPRODUCE-093.md](REPRODUCE-093.md) for the complete installation-to-PDF
+workflow. The single-file host helper [retro093.py](retro093.py) uses only the
+Python 3 standard library to download and SHA-256-check the required archive
+media, original Debian binary packages, and four pinned paper source files,
+then serve them over local HTTP. Disk/emulator/conversion commands use the
+documented host system packages; no pip packages or guest SSH port are needed.
+
+The historical guest produces EPS, DVI and PS. **PDF conversion runs on the
+modern host.** This path was tested on a newly created blank 512 MiB disk on
+2026-10-24; see [verification notes](VERIFICATION-093.md).
+
 ### Standard Compilation (Old Debian)
 
 Run these commands from the repository directory, on either an old system
@@ -83,6 +96,7 @@ ps2pdf debian_intro.ps debian_intro.pdf
   mode. This is expected for this document.
 * The script has been tested with Gnuplot 3.5 (built on modern Linux) and
   Gnuplot 6.0.2. The full LaTeX/BibTeX/dvips workflow has been tested with
-  modern LaTeX in 2.09 compatibility mode. Compilation inside an actual
-  Debian 0.93 installation, using its original TeX macros and fonts, remains
-  unverified.
+  modern LaTeX in 2.09 compatibility mode, and with the original Debian
+  0.93R6 packages inside QEMU. The blank-disk reproduction uses the pinned
+  compatibility example; this is not a promise that arbitrary modern LaTeX
+  papers will compile with the old macros and fonts.
